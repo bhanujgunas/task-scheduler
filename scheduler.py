@@ -42,7 +42,6 @@ def menu():
         opt=menu()
     return opt
 
-addtosched()
 
 if __name__=="1__main__":
     opt = menu()
