@@ -2,7 +2,7 @@
 
 <h1>TASK SCHEDULER</h1>
 
-This task scheduling program which schedules task
+This is a task scheduling cli app which schedules task
 
 You can add, view, modify, delete task.
 
