@@ -1,13 +1,39 @@
 import csv,os,datetime
 os.chdir("D:/schedule/task-scheduler")
+lst = []
 
 def currents():
     d = list(map(int,datetime.datetime.today().strftime("%d/%m/%Y").split('/')))
     t=list(map(int,datetime.datetime.now().strftime(("%H:%M:%S")).split(":")))
     return d[0],d[1],d[2],t[0],t[1],t[2]
 
+def getfiledata():
+    f = open("data.csv","r",newline='\n',encoding="utf8")    
+    re = csv.reader(f,delimiter=',')
+    return list(re)
+
+def alreadyexists(a):
+    global lst
+    for i in lst:
+        if i[:8] == a[:8]:
+            return 0
+    lst.append(a)
+    return 1
+
+def existscan():
+    global lst
+    temp = []
+    for i,j in enumerate(lst):
+        for k,l in enumerate(lst):
+            if i==k:
+                continue
+            else:
+                if j[:8]==l[:8]:
+                    temp.append(j)
+    return temp
 
 def addtosched():
+    global lst
     dd,mm,yyyy = list(map(int,input("Enter the completion date (dd/mm/yyyy) :").split("/")))
 
     hr,min,sec = list(map(int,input("Enter the completion time (hr:min:sec) (24hrs) : ").split(":")))
