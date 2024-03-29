@@ -43,9 +43,15 @@ def addtosched():
 
     add,amm,ayy,ahr,amin,asec = currents()
 
+    task = [dd,mm,yyyy,hr,min,sec,task_name,task_description,add,amm,ayy,ahr,amin,asec]
+
+    if not alreadyexists(task):
+        print("TASK ALREADY EXISTS...")
+        return
+
     f = open("data.csv","a",newline='\n',encoding="utf8")    
     wr = csv.writer(f)
-    wr.writerow([dd,mm,yyyy,hr,min,sec,task_name,task_description,add,amm,ayy,ahr,amin,asec])
+    wr.writerow(task)
     f.close()
     print("Added successfully...")
 
