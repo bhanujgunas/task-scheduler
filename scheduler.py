@@ -1,17 +1,27 @@
-def addtosched():
-    date = list(map(int,input("Enter the completion date (dd/mm/yyyy) :").split("/")))
-    end_date = {"dd":date[0],"mm":date[1],"yyyy":date[2]}
+import csv,os,datetime
+os.chdir("D:/schedule/task-scheduler")
 
-    time = list(map(int,input("Enter the completion time (hr:min:sec) (24hrs) : ").split(":")))
-    end_time = {"hr":time[0],"min":time[1],"sec":time[2]}
+def currents():
+    d = list(map(int,datetime.datetime.today().strftime("%d/%m/%Y").split('/')))
+    t=list(map(int,datetime.datetime.now().strftime(("%H:%M:%S")).split(":")))
+    return d[0],d[1],d[2],t[0],t[1],t[2]
+
+
+def addtosched():
+    dd,mm,yyyy = list(map(int,input("Enter the completion date (dd/mm/yyyy) :").split("/")))
+
+    hr,min,sec = list(map(int,input("Enter the completion time (hr:min:sec) (24hrs) : ").split(":")))
 
     task_name = input("Enter the task name : ")
     task_description = input("Enter the description : ")
 
-    add_date = 0
-    add_time = 0
-    
-    pass
+    add,amm,ayy,ahr,amin,asec = currents()
+
+    f = open("data.csv","a",newline='\n',encoding="utf8")    
+    wr = csv.writer(f)
+    wr.writerow([dd,mm,yyyy,hr,min,sec,task_name,task_description,add,amm,ayy,ahr,amin,asec])
+    f.close()
+    print("Added successfully...")
 
 def gettodaysched():
     pass
@@ -61,4 +71,5 @@ if __name__=="__main__":
         elif opt==5:
             history()
         else:
+            print("Exiting....")
             break
