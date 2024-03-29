@@ -24,6 +24,7 @@ def menu():
     print("4. VIEW MISSED TASKS")
     print("5. HISTORY")
     print("6. EXIT")
+
     opt = int(input("Enter the option : "))
     if opt>6 or opt<1:
         print("Invalid OPTION")
@@ -34,7 +35,9 @@ def menu():
 if __name__=="__main__":
     
     while 1:
+
         opt = menu()
+        
         if opt==1:
             addtosched()
         elif opt==2:
