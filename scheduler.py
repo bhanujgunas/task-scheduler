@@ -1,6 +1,7 @@
 import csv,os,datetime
 os.chdir("D:/schedule/task-scheduler")
 lst = []
+file = "data.csv"
 
 def currents():
     d = list(map(int,datetime.datetime.today().strftime("%d/%m/%Y").split('/')))
@@ -8,7 +9,7 @@ def currents():
     return [d[0],d[1],d[2],t[0],t[1],t[2]]
 
 def getfiledata():
-    f = open("data.csv","r",newline='\n',encoding="utf8")    
+    f = open(file,"r",newline='\n',encoding="utf8")    
     re = csv.reader(f,delimiter=',')
     return list(re)
 
@@ -54,7 +55,7 @@ def addtosched():
         print("TASK ALREADY EXISTS...")
         return
 
-    f = open("data.csv","a",newline='\n',encoding="utf8")    
+    f = open(file,"a",newline='\n',encoding="utf8")    
     wr = csv.writer(f)
     wr.writerow(task)
     f.close()
@@ -82,8 +83,6 @@ def getallsched():
 def getmissedsched():
     pass
 
-def getsched():
-    pass
 
 def history():
     pass
@@ -106,13 +105,13 @@ def menu():
 
 if __name__=="__main__":
 
-    if os.path.exists("data.csv"):
+    if os.path.exists(file):
         lst = getfiledata()
 
     while 1:
 
         opt = menu()
-
+        os.system("cls")
         if opt==1:
             addtosched()
         elif opt==2:
@@ -126,3 +125,5 @@ if __name__=="__main__":
         else:
             print("Exiting....")
             break
+        input("\nPress ENTER to continue...")
+        os.system("cls")
