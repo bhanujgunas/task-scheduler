@@ -1,4 +1,16 @@
-def addtosched(newtask):
+def addtosched():
+    date = list(map(int,input("Enter the completion date (dd/mm/yyyy) :").split("/")))
+    end_date = {"dd":date[0],"mm":date[1],"yyyy":date[2]}
+
+    time = list(map(int,input("Enter the completion time (hr:min:sec) (24hrs) : ").split(":")))
+    end_time = {"hr":time[0],"min":time[1],"sec":time[2]}
+
+    task_name = input("Enter the task name : ")
+    task_description = input("Enter the description : ")
+
+    add_date = 0
+    add_time = 0
+    
     pass
 
 def gettodaysched():
@@ -37,7 +49,7 @@ if __name__=="__main__":
     while 1:
 
         opt = menu()
-        
+
         if opt==1:
             addtosched()
         elif opt==2:
