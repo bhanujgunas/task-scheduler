@@ -5,7 +5,7 @@ lst = []
 def currents():
     d = list(map(int,datetime.datetime.today().strftime("%d/%m/%Y").split('/')))
     t=list(map(int,datetime.datetime.now().strftime(("%H:%M:%S")).split(":")))
-    return d[0],d[1],d[2],t[0],t[1],t[2]
+    return [d[0],d[1],d[2],t[0],t[1],t[2]]
 
 def getfiledata():
     f = open("data.csv","r",newline='\n',encoding="utf8")    
@@ -13,13 +13,13 @@ def getfiledata():
     return list(re)
 
 def alreadyexists(a):
-    global lst
+    #global lst
     for i in lst:
         if i[:8] == a[:8]:
             return 0
     lst.append(a)
     return 1
-
+'''
 def existscan():
     global lst
     temp = []
@@ -31,12 +31,17 @@ def existscan():
                 if j[:8]==l[:8]:
                     temp.append(j)
     return temp
+'''
+
+def sortlst():
+    # sort the list and write it to the file
+    pass
 
 def addtosched():
-    global lst
-    dd,mm,yyyy = list(map(int,input("Enter the completion date (dd/mm/yyyy) :").split("/")))
+    #global lst
+    dd,mm,yyyy = list(map(str,input("Enter the completion date (dd/mm/yyyy) :").split("/")))
 
-    hr,min,sec = list(map(int,input("Enter the completion time (hr:min:sec) (24hrs) : ").split(":")))
+    hr,min,sec = list(map(str,input("Enter the completion time (hr:min:sec) (24hrs) : ").split(":")))
 
     task_name = input("Enter the task name : ")
     task_description = input("Enter the description : ")
@@ -54,12 +59,25 @@ def addtosched():
     wr.writerow(task)
     f.close()
     print("Added successfully...")
+    sortlst()
 
 def gettodaysched():
-    pass
+    #global lst
+    temp = []
+    now = currents()[:3]
+    for i in lst:
+        t = [int(x) for x in i[:3]]
+        if t==now:
+            temp.append(i)
+    print(f"\nTODAY'S SCHEDULE ({now[0]}/{now[1]}/{now[2]})....")
+    for ind,i in enumerate(temp):
+        print(f"\nTask {ind+1} : \nCompletion Time : {i[3]}:{i[4]}:{i[5]}\nTask name : {i[6]}\nTask Description : {i[7]}")
+
 
 def getallsched():
-    pass
+    #global lst
+    for ind,i in enumerate(lst):
+        print(f"\nTask {ind+1} : \nCompletion Date-Time : {i[0]}/{i[1]}/{i[2]} {i[3]}:{i[4]}:{i[5]}\nTask name : {i[6]}\nTask Description : {i[7]}\nTask Added Date-Time : {i[8]}/{i[9]}/{i[10]} {i[11]}:{i[12]}:{i[13]}")
 
 def getmissedsched():
     pass
@@ -87,7 +105,10 @@ def menu():
 
 
 if __name__=="__main__":
-    
+
+    if os.path.exists("data.csv"):
+        lst = getfiledata()
+
     while 1:
 
         opt = menu()
