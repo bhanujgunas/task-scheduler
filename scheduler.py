@@ -77,15 +77,17 @@ def gettodaysched():
 
 def getallsched():
     #global lst
-    for ind,i in enumerate(lst):
-        print(f"\nTask {ind+1} : \nCompletion Date-Time : {i[0]}/{i[1]}/{i[2]} {i[3]}:{i[4]}:{i[5]}\nTask name : {i[6]}\nTask Description : {i[7]}\nTask Added Date-Time : {i[8]}/{i[9]}/{i[10]} {i[11]}:{i[12]}:{i[13]}")
+    # exclude missed task
+    pass
 
 def getmissedsched():
     pass
 
 
 def history():
-    pass
+    print("HISTORY...\n")
+    for ind,i in enumerate(lst):
+        print(f"\nTask {ind+1} : \nCompletion Date-Time : {i[0]}/{i[1]}/{i[2]} {i[3]}:{i[4]}:{i[5]}\nTask name : {i[6]}\nTask Description : {i[7]}\nTask Added Date-Time : {i[8]}/{i[9]}/{i[10]} {i[11]}:{i[12]}:{i[13]}")
 
 def menu():
     print("....MY TASK SCHEDULER....")
