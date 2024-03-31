@@ -85,8 +85,28 @@ def gettodaysched():
 
 
 def getallsched():
+    temp = []
+    now = currents()[:3]
+    for val in lst:
+        t = [int(x) for x in val[:3]]
+        if t[2]==now[2]:
+            if t[1]==now[1]:
+                if t[0]>=now[0]:
+                    temp.append(val)
+            elif t[1]>now[1]:
+                temp.append(val)
+        elif t[2]>now[2]:
+            temp.append(val)
+    print(f"\nSCHEDULE ON AND AFTER ({now[0]}/{now[1]}/{now[2]})....")
+    num=1
+    for ind,i in enumerate(temp):
+        if i[-1]==-1:
+            continue  #missed
+        print(f"\nTask {num} : \nCompletion Date : {i[0]}/{i[1]}/{i[2]}\nCompletion Time : {i[3]}:{i[4]}:{i[5]}\nTask name : {i[6]}\nTask Description : {i[7]}")
+        print("Completed" if i[-1]=='1' else "Not yet Completed")
+        num+=1
+    return temp
     
-    pass
 
 def getmissedsched():
     pass
@@ -141,7 +161,16 @@ def finish():
                     break
 
     elif opt1==2:
-        getallsched()
+        templst = getallsched()
+        if len(templst)>0:
+            ans = int(input("Enter the task number : "))-1
+            for ind,i in enumerate(templst):
+                if ind==ans:
+                    index = lst.index(i)
+                    lst[index][-1]=1
+                    lstwrite()
+                    break
+            print(ans,lst)
 
     else:
         print("Entered wrong option...")
