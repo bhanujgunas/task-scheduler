@@ -1,4 +1,8 @@
-import csv,os,datetime
+import csv
+import os
+import datetime
+import time
+
 os.chdir("D:/schedule/task-scheduler")
 lst = []
 file = "data.csv"
@@ -49,7 +53,7 @@ def addtosched():
 
     add,amm,ayy,ahr,amin,asec = currents()
 
-    task = [dd,mm,yyyy,hr,min,sec,task_name,task_description,add,amm,ayy,ahr,amin,asec]
+    task = [dd,mm,yyyy,hr,min,sec,task_name,task_description,add,amm,ayy,ahr,amin,asec,0]
 
     if not alreadyexists(task):
         print("TASK ALREADY EXISTS...")
@@ -66,13 +70,15 @@ def gettodaysched():
     #global lst
     temp = []
     now = currents()[:3]
-    for i in lst:
-        t = [int(x) for x in i[:3]]
+    for val in lst:
+        t = [int(x) for x in val[:3]]
         if t==now:
-            temp.append(i)
+            temp.append(val)
     print(f"\nTODAY'S SCHEDULE ({now[0]}/{now[1]}/{now[2]})....")
-    for ind,i in enumerate(temp):
+    for ind,j in enumerate(temp):
+        i=j[0]
         print(f"\nTask {ind+1} : \nCompletion Time : {i[3]}:{i[4]}:{i[5]}\nTask name : {i[6]}\nTask Description : {i[7]}")
+    return temp
 
 
 def getallsched():
@@ -99,10 +105,46 @@ def menu():
     print("6. EXIT")
 
     opt = int(input("Enter the option : "))
-    if opt>6 or opt<1:
+    if opt>7 or opt<1:
         print("Invalid OPTION")
         opt=menu()
     return opt
+
+def checkmissed():
+    temp1 = currents()
+    for i in lst:
+        temp2=i
+        if temp1>temp2:
+            return 1
+    return 0
+
+def lstwrite():
+    f = open(file,"w",newline='\n',encoding="utf8")    
+    wr = csv.writer(f)
+    wr.writerows(lst)
+    f.close()
+
+def finish():
+    opt1 = int(input("1. GetTodaySchedule\n2. GetAllSchedule\nEnter option : "))
+    if opt1==1:
+        templst = gettodaysched()
+        ans = int(input("Enter the task number : "))+1
+        for ind,i in enumerate(templst):
+            if ind==ans:
+                index = lst.index(i)
+                lst[index][-1]=1
+                lstwrite()
+                return
+
+    elif opt==2:
+        getallsched()
+
+    else:
+        print("Entered wrong option...")
+        time.sleep(3)
+
+    pass
+    
 
 
 if __name__=="__main__":
@@ -124,6 +166,8 @@ if __name__=="__main__":
             getmissedsched()
         elif opt==5:
             history()
+        elif opt==6:
+            finish()
         else:
             print("Exiting....")
             break
