@@ -76,14 +76,16 @@ def gettodaysched():
             temp.append(val)
     print(f"\nTODAY'S SCHEDULE ({now[0]}/{now[1]}/{now[2]})....")
     for ind,j in enumerate(temp):
+        if j[-1]==-1:
+            continue  #missed
         i=j[0]
-        print(f"\nTask {ind+1} : \nCompletion Time : {i[3]}:{i[4]}:{i[5]}\nTask name : {i[6]}\nTask Description : {i[7]}")
+        print(f"\nTask {ind+1} : \nCompletion Time : {i[3]}:{i[4]}:{i[5]}\nTask name : {i[6]}\nTask Description : {i[7]}",end=' ')
+        print("Completed" if j[-1]==1 else "Not yet Completed")
     return temp
 
 
 def getallsched():
-    #global lst
-    # exclude missed task
+    
     pass
 
 def getmissedsched():
@@ -102,7 +104,8 @@ def menu():
     print("3. VIEW ALL TASKS")
     print("4. VIEW MISSED TASKS")
     print("5. HISTORY")
-    print("6. EXIT")
+    print("6. FINISH")
+    print("7. EXIT")
 
     opt = int(input("Enter the option : "))
     if opt>7 or opt<1:
@@ -128,15 +131,16 @@ def finish():
     opt1 = int(input("1. GetTodaySchedule\n2. GetAllSchedule\nEnter option : "))
     if opt1==1:
         templst = gettodaysched()
-        ans = int(input("Enter the task number : "))+1
-        for ind,i in enumerate(templst):
-            if ind==ans:
-                index = lst.index(i)
-                lst[index][-1]=1
-                lstwrite()
-                return
+        if len(templst)>0:
+            ans = int(input("Enter the task number : "))+1
+            for ind,i in enumerate(templst):
+                if ind==ans:
+                    index = lst.index(i)
+                    lst[index][-1]=1
+                    lstwrite()
+                    break
 
-    elif opt==2:
+    elif opt1==2:
         getallsched()
 
     else:
