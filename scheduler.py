@@ -98,24 +98,28 @@ def getallsched():
         elif t[2]>now[2]:
             temp.append(val)
     print(f"\nSCHEDULE ON AND AFTER ({now[0]}/{now[1]}/{now[2]})....")
-    num=1
     for ind,i in enumerate(temp):
         if i[-1]==-1:
             continue  #missed
-        print(f"\nTask {num} : \nCompletion Date : {i[0]}/{i[1]}/{i[2]}\nCompletion Time : {i[3]}:{i[4]}:{i[5]}\nTask name : {i[6]}\nTask Description : {i[7]}")
+        print(f"\nTask {ind+1} : \nCompletion Date : {i[0]}/{i[1]}/{i[2]}\nCompletion Time : {i[3]}:{i[4]}:{i[5]}\nTask name : {i[6]}\nTask Description : {i[7]}")
         print("Completed" if i[-1]=='1' else "Not yet Completed" if i[-1]=='0' else "Missed")
-        num+=1
     return temp
     
 
 def getmissedsched():
-    pass
+    num=1
+    print("Missed Tasks....")
+    for ind,i in enumerate(lst):
+        if i[-1]==-1:
+            print(f"\nTask {num} : \nCompletion Date-Time : {i[0]}/{i[1]}/{i[2]} {i[3]}:{i[4]}:{i[5]}\nTask name : {i[6]}\nTask Description : {i[7]}\nTask Added Date-Time : {i[8]}/{i[9]}/{i[10]} {i[11]}:{i[12]}:{i[13]}")
+            num+=1
+
 
 
 def history():
     print("HISTORY...\n")
     for ind,i in enumerate(lst):
-        print(f"\nTask {ind+1} : \nCompletion Date-Time : {i[0]}/{i[1]}/{i[2]} {i[3]}:{i[4]}:{i[5]}\nTask name : {i[6]}\nTask Description : {i[7]}\nTask Added Date-Time : {i[8]}/{i[9]}/{i[10]} {i[11]}:{i[12]}:{i[13]}")
+        print(f"\nTask {ind+1} : \nCompletion Date-Time : {i[0]}/{i[1]}/{i[2]} {i[3]}:{i[4]}:{i[5]}\nTask name : {i[6]}\nTask Description : {i[7]}\nTask Added Date-Time : {i[8]}/{i[9]}/{i[10]} {i[11]}:{i[12]}:{i[13]}\nTask Status : {"Completed" if i[-1]=='1' else "Not yet Completed" if i[-1]=='0' else "Missed"}")
 
 def menu():
     print("....MY TASK SCHEDULER....")
