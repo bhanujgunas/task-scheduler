@@ -9,8 +9,8 @@ file = "data.csv"
 status = {'-1':"Missed",'0':"Not yet completed",'1':"Completed"}
 
 def currents():#
-    d = list(map(int,datetime.datetime.today().strftime("%Y/%m/%d").split('/')))
-    t=list(map(int,datetime.datetime.now().strftime(("%H:%M:%S")).split(":")))
+    d = list(map(str,datetime.datetime.today().strftime("%Y/%m/%d").split('/')))
+    t=list(map(str,datetime.datetime.now().strftime(("%H:%M:%S")).split(":")))
     return [d[0],d[1],d[2],t[0],t[1],t[2]]
     
 
@@ -83,7 +83,7 @@ def getmissedsched():#
     temp = []
     print("Missed Tasks....")
     for i in lst:
-        if i[-1]==-1:
+        if i[-1]=='-1':
             print(f"\nTask {num} : \nCompletion Date : {i[0]}/{i[1]}/{i[2]} \nTask name : {i[3]}\nTask Description : {i[4]}\nTask Added Date-Time : {i[5]}/{i[6]}/{i[7]} {i[8]}:{i[9]}:{i[10]}")
             num+=1
             temp.append(i)
