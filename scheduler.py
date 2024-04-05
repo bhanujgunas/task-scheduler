@@ -3,7 +3,7 @@ import os
 import datetime
 import time
 
-os.chdir("D:/schedule/task-scheduler")
+#os.chdir("D:/schedule/task-scheduler")
 lst = []
 file = "data.csv"
 status = {'-1':"Missed",'0':"Not yet completed",'1':"Completed"}
