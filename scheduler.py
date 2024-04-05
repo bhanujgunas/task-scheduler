@@ -6,11 +6,13 @@ import time
 os.chdir("D:/schedule/task-scheduler")
 lst = []
 file = "data.csv"
+status = {'-1':"Missed",'0':"Not yet completed",'1':"Completed"}
 
-def currents():
-    d = list(map(int,datetime.datetime.today().strftime("%d/%m/%Y").split('/')))
-    t=list(map(int,datetime.datetime.now().strftime(("%H:%M:%S")).split(":")))
-    return [d[0],d[1],d[2],t[0],t[1],t[2]]
+def currents():#
+    d = list(map(int,datetime.datetime.today().strftime("%Y/%m/%d").split('/')))
+    #t=list(map(int,datetime.datetime.now().strftime(("%H:%M:%S")).split(":")))
+    #return [d[0],d[1],d[2],t[0],t[1],t[2]]
+    return [d[0],d[1],d[2]]
 
 def getfiledata():
     f = open(file,"r",newline='\n',encoding="utf8")    
@@ -20,7 +22,7 @@ def getfiledata():
 def alreadyexists(a):
     #global lst
     for i in lst:
-        if i[:8] == a[:8]:
+        if i[:5] == a[:5]:
             return 0
     lst.append(a)
     return 1
@@ -40,26 +42,21 @@ def existscan():
 
 def sortlst():
     # sort the list and write it to the file
-    temp=[]
-    for i in lst:
-        for j in lst[:len(lst)-1]:
-            if i!=j:
-                t1 = i[0],i[1],i[2],i[3],i[4],i[5]  #dd mm yy hr min sec
-                t2 = j[0],j[1],j[2],j[3],j[4],j[5]
     pass
 
-def addtosched():
-    #global lst
+def addtosched():#
     dd,mm,yyyy = list(map(str,input("Enter the completion date (dd/mm/yyyy) :").split("/")))
 
-    hr,min,sec = list(map(str,input("Enter the completion time (hr:min:sec) (24hrs) : ").split(":")))
+    #hr,min,sec = list(map(str,input("Enter the completion time (hr:min:sec) (24hrs) : ").split(":")))
 
     task_name = input("Enter the task name : ")
     task_description = input("Enter the description : ")
 
     add,amm,ayy,ahr,amin,asec = currents()
 
-    task = [dd,mm,yyyy,hr,min,sec,task_name,task_description,add,amm,ayy,ahr,amin,asec,0]
+    #task = [dd,mm,yyyy,hr,min,sec,task_name,task_description,add,amm,ayy,ahr,amin,asec,0]
+    #task = [yyyy,mm,dd,hr,min,sec,task_name,task_description,add,amm,ayy,ahr,amin,asec,0]
+    task = [yyyy,mm,dd,task_name,task_description,add,amm,ayy,ahr,amin,asec,0]
 
     if not alreadyexists(task):
         print("TASK ALREADY EXISTS...")
@@ -72,7 +69,7 @@ def addtosched():
     print("Added successfully...")
     sortlst()
 
-def gettodaysched():
+def gettodaysched():#
     #global lst
     temp = []
     now = currents()[:3]
@@ -82,19 +79,19 @@ def gettodaysched():
             temp.append(val)
     print(f"\nTODAY'S SCHEDULE ({now[0]}/{now[1]}/{now[2]})....")
     for ind,j in enumerate(temp):
-        ##if j[-1]==-1:
-        ##    continue  #missed
+        
         i=j
-        print(f"""\nTask {ind+1} : \nCompletion Time : {i[3]}:{i[4]}:{i[5]}\nTask name : {i[6]}\nTask Description : {i[7]}""",end=' ')
-        print("Completed" if j[-1]=='1' else  "Not yet Completed"if j[-1]=='0' else "Missed")
+        print(f"""\nTask {ind+1} : \nTask name : {i[3]}\nTask Description : {i[4]}""")
+        print(status[j[-1]])
     return temp
 
 
-def getallsched():
+def getallsched():#
     temp = []
-    now = currents()[:3]
+    now = currents()
     for val in lst:
         t = [int(x) for x in val[:3]]
+        '''
         if t[2]==now[2]:
             if t[1]==now[1]:
                 if t[0]>=now[0]:
@@ -103,31 +100,37 @@ def getallsched():
                 temp.append(val)
         elif t[2]>now[2]:
             temp.append(val)
-    print(f"\nSCHEDULE ON AND AFTER ({now[0]}/{now[1]}/{now[2]})....")
+        '''
+    #print(f"\nSCHEDULE ON AND AFTER ({now[0]}/{now[1]}/{now[2]})....")
+    print("\nALL SCHEDULE...")
     for ind,i in enumerate(temp):
         if i[-1]==-1:
             continue  #missed
-        print(f"\nTask {ind+1} : \nCompletion Date : {i[0]}/{i[1]}/{i[2]}\nCompletion Time : {i[3]}:{i[4]}:{i[5]}\nTask name : {i[6]}\nTask Description : {i[7]}")
-        print("Completed" if i[-1]=='1' else ("Not yet Completed" if i[-1]=='0' else "Missed"))
+        print(f"\nTask {ind+1} : \nCompletion Date : {i[0]}/{i[1]}/{i[2]}\nTask name : {i[3]}\nTask Description : {i[4]}")
+        print(status[j[-1]])
+
     return temp
     
 
-def getmissedsched():
+def getmissedsched():#
     num=1
+    temp = []
     print("Missed Tasks....")
-    for ind,i in enumerate(lst):
+    for i in lst:
         if i[-1]==-1:
-            print(f"\nTask {num} : \nCompletion Date-Time : {i[0]}/{i[1]}/{i[2]} {i[3]}:{i[4]}:{i[5]}\nTask name : {i[6]}\nTask Description : {i[7]}\nTask Added Date-Time : {i[8]}/{i[9]}/{i[10]} {i[11]}:{i[12]}:{i[13]}")
+            print(f"\nTask {num} : \nCompletion Date : {i[0]}/{i[1]}/{i[2]} \nTask name : {i[3]}\nTask Description : {i[4]}\nTask Added Date-Time : {i[5]}/{i[6]}/{i[7]} {i[8]}:{i[9]}:{i[10]}")
             num+=1
+            temp.append(i)
+    return temp
 
 
 
-def history():
+def history():#
     print("HISTORY...\n")
     for ind,i in enumerate(lst):
-        print(f"""\nTask {ind+1} : \nCompletion Date-Time : {i[0]}/{i[1]}/{i[2]} {i[3]}:{i[4]}:{i[5]}\nTask name : {i[6]}\nTask Description : {i[7]}\nTask Added Date-Time : {i[8]}/{i[9]}/{i[10]} {i[11]}:{i[12]}:{i[13]}\nTask Status : {"Completed" if i[-1]=='1' else "Not yet Completed" if i[-1]=='0' else "Missed"}""")
+        print(f"""\nTask {ind+1} : \nCompletion Date : {i[0]}/{i[1]}/{i[2]} \nTask name : {i[3]}\nTask Description : {i[4]}\nTask Added Date-Time : {i[5]}/{i[6]}/{i[7]} {i[8]}:{i[9]}:{i[10]}\nTask Status : {status[i[-1]]}""")
 
-def menu():
+def menu():#
     print("....MY TASK SCHEDULER....")
     print("1. ADD TASK")
     print("2. VIEW TODAY\'S TASKS")
@@ -157,37 +160,34 @@ def lstwrite():
     wr.writerows(lst)
     f.close()
 
-def finish():
-    global lst
+def finish():#
     opt1 = int(input("1. GetTodaySchedule\n2. GetAllSchedule\nEnter option : "))
     if opt1==1:
         templst = [x for x in gettodaysched() if x[-1]!=1]
         if len(templst)>0:
-            ans = int(input("Enter the task number : "))+1
+            ans = int(input("Enter finished task number : "))+1
             for ind,i in enumerate(templst):
                 if ind==ans:
                     index = lst.index(i)
                     lst[index][-1]=1
                     lstwrite()
-                    break
+                    return
 
     elif opt1==2:
         templst = [x for x in getallsched() if x[-1]!=1]
         if len(templst)>0:
-            ans = int(input("Enter the task number : "))-1
+            ans = int(input("Enter finished task number : "))-1
             for ind,i in enumerate(templst):
                 if ind==ans:
                     index = lst.index(i)
                     lst[index][-1]=1
                     lstwrite()
-                    break
+                    return
 
     else:
         print("Entered wrong option...")
         time.sleep(3)
 
-    pass
-    
 
 
 if __name__=="__main__":
