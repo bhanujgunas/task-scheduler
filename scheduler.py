@@ -40,6 +40,12 @@ def existscan():
 
 def sortlst():
     # sort the list and write it to the file
+    temp=[]
+    for i in lst:
+        for j in lst[:len(lst)-1]:
+            if i!=j:
+                t1 = i[0],i[1],i[2],i[3],i[4],i[5]  #dd mm yy hr min sec
+                t2 = j[0],j[1],j[2],j[3],j[4],j[5]
     pass
 
 def addtosched():
@@ -78,8 +84,8 @@ def gettodaysched():
     for ind,j in enumerate(temp):
         ##if j[-1]==-1:
         ##    continue  #missed
-        i=j[0]
-        print(f"\nTask {ind+1} : \nCompletion Time : {i[3]}:{i[4]}:{i[5]}\nTask name : {i[6]}\nTask Description : {i[7]}",end=' ')
+        i=j
+        print(f"""\nTask {ind+1} : \nCompletion Time : {i[3]}:{i[4]}:{i[5]}\nTask name : {i[6]}\nTask Description : {i[7]}""",end=' ')
         print("Completed" if j[-1]=='1' else  "Not yet Completed"if j[-1]=='0' else "Missed")
     return temp
 
@@ -102,7 +108,7 @@ def getallsched():
         if i[-1]==-1:
             continue  #missed
         print(f"\nTask {ind+1} : \nCompletion Date : {i[0]}/{i[1]}/{i[2]}\nCompletion Time : {i[3]}:{i[4]}:{i[5]}\nTask name : {i[6]}\nTask Description : {i[7]}")
-        print("Completed" if i[-1]=='1' else "Not yet Completed" if i[-1]=='0' else "Missed")
+        print("Completed" if i[-1]=='1' else ("Not yet Completed" if i[-1]=='0' else "Missed"))
     return temp
     
 
@@ -119,7 +125,7 @@ def getmissedsched():
 def history():
     print("HISTORY...\n")
     for ind,i in enumerate(lst):
-        print(f"\nTask {ind+1} : \nCompletion Date-Time : {i[0]}/{i[1]}/{i[2]} {i[3]}:{i[4]}:{i[5]}\nTask name : {i[6]}\nTask Description : {i[7]}\nTask Added Date-Time : {i[8]}/{i[9]}/{i[10]} {i[11]}:{i[12]}:{i[13]}\nTask Status : {"Completed" if i[-1]=='1' else "Not yet Completed" if i[-1]=='0' else "Missed"}")
+        print(f"""\nTask {ind+1} : \nCompletion Date-Time : {i[0]}/{i[1]}/{i[2]} {i[3]}:{i[4]}:{i[5]}\nTask name : {i[6]}\nTask Description : {i[7]}\nTask Added Date-Time : {i[8]}/{i[9]}/{i[10]} {i[11]}:{i[12]}:{i[13]}\nTask Status : {"Completed" if i[-1]=='1' else "Not yet Completed" if i[-1]=='0' else "Missed"}""")
 
 def menu():
     print("....MY TASK SCHEDULER....")
@@ -152,6 +158,7 @@ def lstwrite():
     f.close()
 
 def finish():
+    global lst
     opt1 = int(input("1. GetTodaySchedule\n2. GetAllSchedule\nEnter option : "))
     if opt1==1:
         templst = [x for x in gettodaysched() if x[-1]!=1]
