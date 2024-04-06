@@ -105,7 +105,8 @@ def menu():#
     print("4. VIEW MISSED TASKS")
     print("5. HISTORY")
     print("6. FINISH")
-    print("7. EXIT")
+    
+    print("8. EXIT")
 
     opt = int(input("Enter the option : "))
     if opt>7 or opt<1:
@@ -149,9 +150,8 @@ def finish():#
 
 
 def missedassign():#
-    t = currents()
     for ind,i in enumerate(lst):
-        if i[:3]<t[:3]:
+        if i[:3]<i[5:8]:
             lst[ind][-1]='-1'
     lstwrite()
 
