@@ -193,26 +193,29 @@ if __name__=="__main__":
         lst = getfiledata()
 
     while 1:
-
-        opt = menu()
-        os.system("cls")
-        if opt==1:
-            addtosched()
-        elif opt==2:
-            gettodaysched()
-        elif opt==3:
-            getallsched()
-        elif opt==4:
-            getmissedsched()
-        elif opt==5:
-            history()
-        elif opt==6:
-            finish()
-        elif opt==7:
-            delete()
-        else:
-            print("Exiting....")
-            break
+        try:  
+            opt = menu()
+            os.system("cls")
+            if opt==1:
+                addtosched()
+            elif opt==2:
+                gettodaysched()
+            elif opt==3:
+                getallsched()
+            elif opt==4:
+                getmissedsched()
+            elif opt==5:
+                history()
+            elif opt==6:
+                finish()
+            elif opt==7:
+                delete()
+            else:
+                print("Exiting....")
+                break
+        except:
+            print("Error...")
+            time.sleep(1)
 
         input("\nPress ENTER to continue...")
         os.system("cls")
