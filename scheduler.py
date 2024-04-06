@@ -105,11 +105,11 @@ def menu():#
     print("4. VIEW MISSED TASKS")
     print("5. HISTORY")
     print("6. FINISH")
-    
+    print("7. DELETE TASK")
     print("8. EXIT")
 
     opt = int(input("Enter the option : "))
-    if opt>7 or opt<1:
+    if opt>8 or opt<1:
         print("Invalid OPTION")
         opt=menu()
     return opt
@@ -121,11 +121,12 @@ def lstwrite():#
     f.close()
 
 def finish():#
+    print("Enter '1' if the task is scheduled today otherwise enter '2'...")
     opt1 = int(input("1. GetTodaySchedule\n2. GetAllSchedule\nEnter option : "))
     if opt1==1:
         templst = [x for x in gettodaysched() if x[-1]!=1]
         if len(templst)>0:
-            ans = int(input("Enter finished task number : "))+1
+            ans = int(input("Enter finished task number : "))-1
             for ind,i in enumerate(templst):
                 if ind==ans:
                     index = lst.index(i)
@@ -155,6 +156,36 @@ def missedassign():#
             lst[ind][-1]='-1'
     lstwrite()
 
+def delete():
+    opt1 = int(input("1. GetTodaySchedule\n2. GetAllSchedule\nEnter option : "))
+    if opt1==1:
+        templst = [x for x in gettodaysched() if x[-1]!=1]
+        if len(templst)>0:
+            ans = int(input("Enter task number to delete : "))-1
+            for ind,i in enumerate(templst):
+                if ind==ans:
+                    print(f"Task deleted...")
+                    lst.remove(i)
+                    lstwrite()
+                    time.sleep(3)
+                    return
+
+
+    elif opt1==2:
+        templst = [x for x in getallsched() if x[-1]!=1]
+        if len(templst)>0:
+            ans = int(input("Enter task number to delete : "))-1
+            for ind,i in enumerate(templst):
+                if ind==ans:
+                    print(f"Task deleted...")
+                    lst.remove(i)
+                    lstwrite()
+                    time.sleep(3)
+                    return
+
+    else:
+        print("Entered wrong option...")
+        time.sleep(3)
 
 if __name__=="__main__":
 
@@ -177,8 +208,11 @@ if __name__=="__main__":
             history()
         elif opt==6:
             finish()
+        elif opt==7:
+            delete()
         else:
             print("Exiting....")
             break
+
         input("\nPress ENTER to continue...")
         os.system("cls")
