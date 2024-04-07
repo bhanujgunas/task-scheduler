@@ -132,6 +132,7 @@ def finish():#
                     index = lst.index(i)
                     lst[index][-1]='1'
                     lstwrite()
+                    print(f"\nTask '{lst[index][3]}' is finished...")
                     return
 
     elif opt1==2:
@@ -143,6 +144,7 @@ def finish():#
                     index = lst.index(i)
                     lst[index][-1]='1'
                     lstwrite()
+                    print(f"\nTask '{lst[index][3]}' is finished...")
                     return
 
     else:
