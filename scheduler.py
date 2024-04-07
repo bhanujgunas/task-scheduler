@@ -52,7 +52,7 @@ def addtosched():#
 
 def gettodaysched():#
     temp = []
-    now = currents()[:3]
+    now = [int(x) for x in currents()[:3]]
     for val in lst:
         t = [int(x) for x in val[:3]]
         if t==now:
