@@ -70,7 +70,7 @@ def getallsched():#
     temp = lst
     print("\nALL SCHEDULE...")
     for ind,i in enumerate(temp):
-        if i[-1]==-1:
+        if i[-1]=='-1':
             continue  #missed
         print(f"\nTask {ind+1} : \nCompletion Date : {i[0]}/{i[1]}/{i[2]}\nTask name : {i[3]}\nTask Description : {i[4]}")
         print(status[str(i[-1])])
@@ -125,7 +125,7 @@ def finish():#
     print("Enter '1' if the task is scheduled today otherwise enter '2'...")
     opt1 = int(input("1. GetTodaySchedule\n2. GetAllSchedule\nEnter option : "))
     if opt1==1:
-        templst = [x for x in gettodaysched() if x[-1]!=1]
+        templst = [x for x in gettodaysched() if x[-1]!='1']
         if len(templst)>0:
             ans = int(input("Enter finished task number : "))-1
             for ind,i in enumerate(templst):
@@ -137,7 +137,7 @@ def finish():#
                     return
 
     elif opt1==2:
-        templst = [x for x in getallsched() if x[-1]!=1]
+        templst = [x for x in getallsched() if x[-1]!='1']
         if len(templst)>0:
             ans = int(input("Enter finished task number : "))-1
             for ind,i in enumerate(templst):
@@ -162,7 +162,7 @@ def missedassign():#
 def delete():
     opt1 = int(input("1. GetTodaySchedule\n2. GetAllSchedule\nEnter option : "))
     if opt1==1:
-        templst = [x for x in gettodaysched() if x[-1]!=1]
+        templst = [x for x in gettodaysched() if x[-1]!='1']
         if len(templst)>0:
             ans = int(input("Enter task number to delete : "))-1
             for ind,i in enumerate(templst):
@@ -175,7 +175,7 @@ def delete():
 
 
     elif opt1==2:
-        templst = [x for x in getallsched() if x[-1]!=1]
+        templst = [x for x in getallsched() if x[-1]!='1']
         if len(templst)>0:
             ans = int(input("Enter task number to delete : "))-1
             for ind,i in enumerate(templst):
@@ -197,11 +197,16 @@ def finishedtoday():
         t = [int(x) for x in val[:3]]
         if t==now:
             temp.append(val)
-    templst = [x for x in gettodaysched() if x[-1]==1]
+    templst = [x for x in gettodaysched() if x[-1]=='1']
     return templst
 
 def finishedall():
-    ...
+    temp = []
+    for i in lst:
+        if i[-1]=='-1':
+            temp.append(i)
+    return temp
+    
 
 def finishedtasks():
     opt1 = int(input("1. GetTodaySchedule\n2. GetAllSchedule\nEnter option : "))
@@ -211,21 +216,17 @@ def finishedtasks():
             print("TODAY'S FINISHED TASKS...")
             for ind,j in enumerate(temp):
                 i=j
-                print(f"""\nTask {ind+1} : \nTask name : {i[3]}\nTask Description : {i[4]}""")
-                print(status[j[-1]])
+                print(f"""\nTask {ind+1} : \nTask name : {i[3]}\nTask Description : {i[4]}\n""")
 
 
     elif opt1==2:
-        templst = [x for x in getallsched() if x[-1]!=1]
-        if len(templst)>0:
-            ans = int(input("Enter task number to delete : "))-1
-            for ind,i in enumerate(templst):
-                if ind==ans:
-                    print(f"Task deleted...")
-                    lst.remove(i)
-                    lstwrite()
-                    time.sleep(3)
-                    return
+        temp = finishedall()
+        if len(temp)>0:
+            print("\nALL FINISHED TASKS...")
+            for ind,i in enumerate(temp):
+                if i[-1]=='1':
+                    print(f"\nTask {ind+1} : \nCompletion Date : {i[0]}/{i[1]}/{i[2]}\nTask name : {i[3]}\nTask Description : {i[4]}\n")      
+
 
     else:
         print("Entered wrong option...")
@@ -255,7 +256,7 @@ if __name__=="__main__":
             elif opt==7:
                 delete()
             elif opt==8:
-                finishedtask()
+                finishedtasks()
             else:
                 print("Exiting....")
                 time.sleep(1)
