@@ -203,7 +203,7 @@ def finishedtoday():
 def finishedall():
     temp = []
     for i in lst:
-        if i[-1]=='-1':
+        if i[-1]=='1':
             temp.append(i)
     return temp
     
@@ -214,9 +214,10 @@ def finishedtasks():
         temp = finishedtoday()
         if len(temp)>0:
             print("TODAY'S FINISHED TASKS...")
-            for ind,j in enumerate(temp):
-                i=j
+            for ind,i in enumerate(temp):
                 print(f"""\nTask {ind+1} : \nTask name : {i[3]}\nTask Description : {i[4]}\n""")
+        else:
+            print("NO FINISHED TASKS FOR TODAY....")
 
 
     elif opt1==2:
@@ -224,8 +225,9 @@ def finishedtasks():
         if len(temp)>0:
             print("\nALL FINISHED TASKS...")
             for ind,i in enumerate(temp):
-                if i[-1]=='1':
-                    print(f"\nTask {ind+1} : \nCompletion Date : {i[0]}/{i[1]}/{i[2]}\nTask name : {i[3]}\nTask Description : {i[4]}\n")      
+                print(f"\nTask {ind+1} : \nCompletion Date : {i[0]}/{i[1]}/{i[2]}\nTask name : {i[3]}\nTask Description : {i[4]}\n")      
+        else:
+            print("YOU HAVEN'T FINISHED ANY TASKS YET...")
 
 
     else:
