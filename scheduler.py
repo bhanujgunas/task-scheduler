@@ -57,23 +57,25 @@ def gettodaysched():#
         t = [int(x) for x in val[:3]]
         if t==now:
             temp.append(val)
-    print(f"\nTODAY'S SCHEDULE ({now[0]}/{now[1]}/{now[2]})....")
-    for ind,j in enumerate(temp):
-        
-        i=j
-        print(f"""\nTask {ind+1} : \nTask name : {i[3]}\nTask Description : {i[4]}""")
-        print(status[j[-1]])
+    if len(temp)>0:
+        print(f"\nTODAY'S SCHEDULE ({now[0]}/{now[1]}/{now[2]})....")
+        for ind,j in enumerate(temp):
+            
+            i=j
+            print(f"""\nTask {ind+1} : \nTask name : {i[3]}\nTask Description : {i[4]}""")
+            print(status[j[-1]])
     return temp
 
 
 def getallsched():#
     temp = lst
-    print("\nALL SCHEDULE...")
-    for ind,i in enumerate(temp):
-        if i[-1]=='-1':
-            continue  #missed
-        print(f"\nTask {ind+1} : \nCompletion Date : {i[0]}/{i[1]}/{i[2]}\nTask name : {i[3]}\nTask Description : {i[4]}")
-        print(status[str(i[-1])])
+    if len(temp)>0:
+        print("\nALL SCHEDULE...")
+        for ind,i in enumerate(temp):
+            if i[-1]=='-1':
+                continue  #missed
+            print(f"\nTask {ind+1} : \nCompletion Date : {i[0]}/{i[1]}/{i[2]}\nTask name : {i[3]}\nTask Description : {i[4]}")
+            print(status[str(i[-1])])
 
     return temp
     
