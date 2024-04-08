@@ -190,8 +190,46 @@ def delete():
         print("Entered wrong option...")
         time.sleep(3)
 
-def finishedtasks():
+def finishedtoday():
+    temp = []
+    now = [int(x) for x in currents()[:3]]
+    for val in lst:
+        t = [int(x) for x in val[:3]]
+        if t==now:
+            temp.append(val)
+    templst = [x for x in gettodaysched() if x[-1]==1]
+    return templst
+
+def finishedall():
     ...
+
+def finishedtasks():
+    opt1 = int(input("1. GetTodaySchedule\n2. GetAllSchedule\nEnter option : "))
+    if opt1==1:
+        temp = finishedtoday()
+        if len(temp)>0:
+            print("TODAY'S FINISHED TASKS...")
+            for ind,j in enumerate(temp):
+                i=j
+                print(f"""\nTask {ind+1} : \nTask name : {i[3]}\nTask Description : {i[4]}""")
+                print(status[j[-1]])
+
+
+    elif opt1==2:
+        templst = [x for x in getallsched() if x[-1]!=1]
+        if len(templst)>0:
+            ans = int(input("Enter task number to delete : "))-1
+            for ind,i in enumerate(templst):
+                if ind==ans:
+                    print(f"Task deleted...")
+                    lst.remove(i)
+                    lstwrite()
+                    time.sleep(3)
+                    return
+
+    else:
+        print("Entered wrong option...")
+        time.sleep(3)
 
 if __name__=="__main__":
 
