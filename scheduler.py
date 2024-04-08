@@ -106,7 +106,8 @@ def menu():#
     print("5. HISTORY")
     print("6. FINISH")
     print("7. DELETE TASK")
-    print("8. EXIT")
+    print("8. VIEW FINISHED TASKS")
+    print("9. EXIT")
 
     opt = int(input("Enter the option : "))
     if opt>8 or opt<1:
@@ -189,6 +190,9 @@ def delete():
         print("Entered wrong option...")
         time.sleep(3)
 
+def finishedtasks():
+    ...
+
 if __name__=="__main__":
 
     if os.path.exists(file):
@@ -212,8 +216,11 @@ if __name__=="__main__":
                 finish()
             elif opt==7:
                 delete()
+            elif opt==8:
+                finishedtask()
             else:
                 print("Exiting....")
+                time.sleep(1)
                 break
         except:
             print("Error...")
