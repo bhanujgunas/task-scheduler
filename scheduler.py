@@ -27,10 +27,6 @@ def alreadyexists(a):#
     return 1
 
 
-def sortlst():
-    lst.sort()
-
-
 def addtosched():#
     dd,mm,yyyy = list(map(str,input("Enter the completion date (dd/mm/yyyy) :").split("/")))
 
