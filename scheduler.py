@@ -115,6 +115,8 @@ def menu():#
     if opt>8 or opt<1:
         print("Invalid OPTION")
         opt=menu()
+        if len(lst)==0 and opt>1:
+            return 0
     return opt
 
 def lstwrite():#
@@ -236,6 +238,10 @@ def finishedtasks():
         print("Entered wrong option...")
         time.sleep(3)
 
+def lstempty():
+    print("No tasks are available...\nAdd new tasks to do any operations...")
+    time.sleep(2)
+
 if __name__=="__main__":
 
     if os.path.exists(file):
@@ -245,7 +251,9 @@ if __name__=="__main__":
         try:  
             opt = menu()
             os.system("cls")
-            if opt==1:
+            if opt==0:
+                lstempty()
+            elif opt==1:
                 addtosched()
             elif opt==2:
                 gettodaysched()
