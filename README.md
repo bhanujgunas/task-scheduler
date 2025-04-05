@@ -12,7 +12,7 @@ Version 1 ------ CLI
 
 <h1>Instruction to use:</h2>
 <li>Use git clone if you have git otherwise use the zip version.</li>
-<li>If you have git, <code>git clone https://github.com/bhanuj10/task-scheduler.git</code></li>
+<li>If you have git, <code>git clone https://github.com/bhanujgunas/task-scheduler.git</code></li>
 <li>Open the terminal and run the program <code>python scheduler.py</code></li>
 
 <h3 style=color:red>Note:</h3>
